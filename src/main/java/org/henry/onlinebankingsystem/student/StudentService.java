@@ -44,7 +44,7 @@ public class StudentService {
     public void deleteStudent(String studentID) {
         boolean exists = studentRepository.existsById(studentID);
         if(!exists){
-            throw new IllegalStateException("student with id " + studentID + "does not exist");
+            throw new IllegalStateException("student with id " + studentID + " does not exist");
         }
         studentRepository.deleteById(studentID);
     }
@@ -52,7 +52,6 @@ public class StudentService {
 
     @Transactional
     public ResponseEntity<Student> updateStudent(String studentID, Student student) {
-        //throw an exeption that is gotten from the first function
         Student existingStudent = getStudent(studentID);
 
         if(student.getName() != null){

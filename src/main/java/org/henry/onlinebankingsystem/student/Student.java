@@ -14,7 +14,7 @@ public class Student {
     private String studentID;
     private String name;
 
-//    @Column(unique = true)
+    @Column(unique = true)
     private String email;
     @Transient
     private Integer age;

@@ -1,7 +1,6 @@
 package org.henry.onlinebankingsystem.student;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.AbstractThrowableAssert;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -16,7 +15,6 @@ import static java.time.Month.JUNE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.when;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
@@ -51,17 +49,12 @@ class StudentServiceTest {
     @Test
     void studentDoesNotExist(){
         String email = "taiwoh782@gmail.com";
-        Student student = new Student(
-                "Henry",
-                email,
-                LocalDate.of(2004, JUNE,5)
-        );
 
-        given(studentRepository.findStudentByEmail(email)).willReturn(Optional.ofNullable(null));
+        given(studentRepository.findStudentByEmail(email)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> underTest.getStudent(email))
                 .isInstanceOf(IllegalStateException.class)
-                .hasMessage("student with email " + email + "does not exist");
+                .hasMessage("student with email " + email + " does not exist");
     }
 
     @BeforeEach
@@ -135,53 +128,30 @@ class StudentServiceTest {
 
         assertThatThrownBy(() -> underTest.deleteStudent(student.getStudentID()))
                 .isInstanceOf(IllegalStateException.class)
-                .hasMessage("student with id " + student.getStudentID() + "does not exist");
+                .hasMessage("student with id " + student.getStudentID() + " does not exist");
     }
 
     @Test
     void canUpdateStudent(){
-        //given
-        String email = "taiwoh782@gmail.com";
         Student existingStudent = new Student(
-                "Henry",
-                email,
-                LocalDate.of(2004, JUNE,5)
-        );
-        //when
-        when(studentRepository.existsById(existingStudent.getStudentID())).thenReturn(true);
+                "John",
+                "john@example.com",
+                LocalDate.of(2000, 1, 1));
+        Student updatedStudent = new Student(
+                "John",
+                "john_updated@example.com",
+                LocalDate.of(2000, 1, 1));
 
-        Student updatingStudent = new Student("Henry 2", "taiwoh785@gmail.com", LocalDate.of(2006, JUNE,5));
+        given(studentRepository.findStudentByEmail(existingStudent.getEmail())).willReturn(Optional.of(existingStudent));
 
-        ResponseEntity<Student> response =  underTest.updateStudent(updatingStudent.getStudentID(), updatingStudent);
+        ResponseEntity<Student> responseEntity = underTest.updateStudent(existingStudent.getEmail(), updatedStudent);
 
-        //then
-//        assertThatThrownBy(() -> underTest.updateStudent(existingStudent.getStudentID(), existingStudent))
-//                .isInstanceOf(IllegalStateException.class)
-//                .hasMessage("student with email " + email + " does not exist");
+        ArgumentCaptor<Student> argumentCaptor = ArgumentCaptor.forClass(Student.class);
+        verify(studentRepository).save(argumentCaptor.capture());
+        Student newStudent = argumentCaptor.getValue();
 
-//        underTest.updateStudent(updatingStudent.getStudentID(), updatingStudent);
-        assertThat(200).isEqualTo(response.getStatusCode());
-        verify(studentRepository).save(updatingStudent);
-
-        assertThat("Henry2").isEqualTo(existingStudent.getName());
-        assertThat("taiwoh782@gmail.com").isEqualTo(existingStudent.getEmail());
-        assertThat(LocalDate.of(2006, JUNE, 5)).isEqualTo(existingStudent.getDob());
-//        String studentID = "test@example.com";
-//        Student existingStudent = new Student("Existing", "existing@example.com", LocalDate.of(2000, 1, 1));
-//        when(studentRepository.findStudentByEmail(studentID)).thenReturn(Optional.of(existingStudent));
-//
-//        Student updatedStudent = new Student("Updated", "updated@example.com", LocalDate.of(2001, 2, 2));
-//
-//        ResponseEntity<Student> responseEntity = studentService.updateStudent(studentID, updatedStudent);
-//
-//        // Verify that the method returns ResponseEntity with OK status
-//        assertEquals(200, responseEntity.getStatusCodeValue());
-//
-//        // Verify that the existing student is updated and saved
-//        verify(studentRepository, times(1)).save(existingStudent);
-//        assertEquals("Updated", existingStudent.getName());
-//        assertEquals("updated@example.com", existingStudent.getEmail());
-//        assertEquals(LocalDate.of(2001, 2, 2), existingStudent.getDob());
-
+        // Verify behavior
+        assertThat(newStudent).isEqualTo(responseEntity.getBody());
     }
+
 }
