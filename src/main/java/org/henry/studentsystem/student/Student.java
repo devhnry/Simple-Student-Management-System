@@ -1,6 +1,8 @@
-package org.henry.onlinebankingsystem.student;
+package org.henry.studentsystem.student;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String studentID;
+    @Getter
     private String name;
 
     @Column(unique = true)
@@ -45,10 +48,6 @@ public class Student {
         this.studentID = studentID;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -63,7 +62,7 @@ public class Student {
 
     public Integer getAge() {
         if (dob == null) {
-            return null; // or any default value you want to return when startDateInclusive is null
+            return null;
         }
 
         return Period.between(dob, LocalDate.now()).getYears();

@@ -1,4 +1,4 @@
-package org.henry.onlinebankingsystem.model;
+package org.henry.studentsystem.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +24,7 @@ public class RegistrationController {
     }
 
     @GetMapping(path = {"/home"})
-    public String home(){
+    public String home() {
         return "Henry";
     }
 }

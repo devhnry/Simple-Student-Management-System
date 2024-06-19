@@ -1,4 +1,4 @@
-package org.henry.onlinebankingsystem.student;
+package org.henry.studentsystem.student;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

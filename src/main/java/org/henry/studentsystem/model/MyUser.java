@@ -1,4 +1,4 @@
-package org.henry.onlinebankingsystem.model;
+package org.henry.studentsystem.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,10 +16,6 @@ public class MyUser {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getUsername() {

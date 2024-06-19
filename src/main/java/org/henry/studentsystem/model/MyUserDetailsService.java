@@ -1,4 +1,4 @@
-package org.henry.onlinebankingsystem.model;
+package org.henry.studentsystem.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

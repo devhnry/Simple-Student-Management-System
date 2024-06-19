@@ -1,6 +1,6 @@
-package org.henry.onlinebankingsystem.security;
+package org.henry.studentsystem.security;
 
-import org.henry.onlinebankingsystem.model.MyUserDetailsService;
+import org.henry.studentsystem.model.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

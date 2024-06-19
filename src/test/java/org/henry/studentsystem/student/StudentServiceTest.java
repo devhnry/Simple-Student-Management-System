@@ -1,4 +1,4 @@
-package org.henry.onlinebankingsystem.student;
+package org.henry.studentsystem.student;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;

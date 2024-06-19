@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.henry</groupId>
-    <artifactId>OnlineBankingSystem</artifactId>
+    <artifactId>StudentSystem</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>OnlineBankingSystem</name>
     <description>OnlineBankingSystem</description>

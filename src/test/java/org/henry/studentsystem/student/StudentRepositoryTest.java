@@ -1,11 +1,9 @@
-package org.henry.onlinebankingsystem.student;
+package org.henry.studentsystem.student;
 
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
